@@ -1,0 +1,1 @@
+"./ADC_functions.obj" "./DAC_functions.obj" "./MAX2828_functions.obj" "./RCS_auxiliary.obj" "./dpuser.obj" "./main.obj" "../lnk_msp430fr5969.cmd" -l"libmath.a" -l"libc.a" 
