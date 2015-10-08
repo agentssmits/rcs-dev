@@ -1,12 +1,10 @@
 /*
-Authors: Arturs Orbidans, Raivis Paberz, Roberts Trops
-
-TODO:
-	* Parvietot noklusçtâs un lietotâja reìistru vçrtîbas uz patstâvîgo atmiòu
-	* Pârveidot datu nolasîðanu no UART, lai tiktu izmantota ISR
-	* Izveidot uart_flush() funkciju
-	*
+Authors:
+Arturs Orbidans
+Raivis Paberz
+Roberts Trops
 */
+
 #include <msp430.h>
 #include "dpuser.h"
 #include "RCS_auxiliary.h"
@@ -45,7 +43,6 @@ TODO:
 #define reg_bits    14 // number of bits in max2828 conf. register
 
 //Define UART RX buffer and its size
-//const	unsigned char UART_RX_BUFFER_SIZE 	= 16;
 static	unsigned char rx_a0_buffer_index 	= 0;
 #pragma NOINIT(UART_RX_BUFFER)
 unsigned char UART_RX_BUFFER[UART_RX_BUFFER_SIZE];
@@ -73,6 +70,7 @@ uint16_t default_reg[reg_count]=
     0b00000001111111, // R11
     0b00000000000000  // R12
 };
+
 // Registers defined by user
 uint16_t user_reg[reg_count] = {0};
 
@@ -131,8 +129,8 @@ int main(void) {
     //Board specific assigment
     PJDIR &= ~BIT5;
 
-    PM5CTL0 &= ~LOCKLPM5;                   // Disable the GPIO power-on default high-impedance mode
-                                            // to activate previously configured port settings
+    PM5CTL0 &= ~LOCKLPM5;	// Disable the GPIO power-on default high-impedance mode
+    // to activate previously configured port settings
     char 			action_code 		= 0;
     unsigned char 	temp,temp2,temp3 	= 0;
     unsigned long int in_val = 0;
@@ -208,19 +206,12 @@ int main(void) {
     	break;
     case set_reg:
     	dp_display_text("\r\n--->Type MAX2828 register adress [0;12] & press enter: ");
-    	temp = get_number(DEC);//Adr
-//#if bin_mode
+    	temp = get_number(DEC);	//Adr
     	dp_display_text("\r\n--->Type MAX2828 register 14 bit binary val & press enter: ");
     	in_val = get_number(BIN);
-    	temp2 = in_val>>8;	//MSB
+    	temp2 = in_val>>8;		//MSB
     	temp3 = in_val&0xff;	//LSB
-//#else
-//    	dp_display_text("\r\n--->Type MAX2828 register MSB val [0;63] & press enter: ");
-//    	temp2 = get_number(DEC);
-//    	dp_display_text("\r\n--->Type MAX2828 register LSB val [0;255] & press enter: ");
-//    	temp3 = get_number(DEC);
-//#endif
-    	//if (MAX2828_set_tegister_values(temp,temp2,temp3)==0b01011111)
+
     	if (MAX2828_set_tegister_values(temp,in_val)==0b01011111)
     	{
     		dp_display_text("\r\n--->MAX2828 register ");
