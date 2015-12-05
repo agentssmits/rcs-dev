@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1433687654 source:c:\users\arturs o\desktop\com_test\main.c
+	<stdlib.h>
+	<windows.h>
+	<stdio.h>
+
+1449174320 source:e:\desktop\com_test\main.c
+	<stdlib.h>
+	<stdio.h>
+	<stdbool.h>
+	"com.h"
+	"files.h"
+
+1448972496 e:\desktop\com_test\com.h
+	<windows.h>
+	<stdio.h>
+
+1449151027 source:e:\desktop\com_test\com.c
+	"com.h"
+	<windows.h>
+
+1449149342 source:e:\desktop\com_test\files.c
+	"files.h"
+
+1448975809 e:\desktop\com_test\files.h
+	<stdio.h>
+
